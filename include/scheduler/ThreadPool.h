@@ -1,11 +1,11 @@
 #pragma one 
 
 #include <vector> 
-#include<thread> 
+#include <thread> 
 #include <queue> 
 #include <mutex> 
 #include <condition_variable>
-#include<condition_variable>
+
 #include<atomic> 
 
 #include "scheduler/Task.h"
@@ -20,7 +20,7 @@ public:
 
     void submit(Task task);
 private:
-    void worker(); // Worker thread function
+    void worker_loop(); // Worker thread function
 
     std::vector<std::thread> workers_; // Vector to hold worker threads
 
