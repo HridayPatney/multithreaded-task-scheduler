@@ -1,4 +1,5 @@
-#pragma one 
+#pragma once 
+#define _GLIBCXX_HAS_GTHREADS 1
 
 #include <vector> 
 #include <thread> 
@@ -6,7 +7,7 @@
 #include <mutex> 
 #include <condition_variable>
 
-#include<atomic> 
+#include <atomic> 
 
 #include "scheduler/Task.h"
 
@@ -31,7 +32,7 @@ private:
     std::condition_variable cv_; // Condition variable for task notification
 
     std::atomic<bool> running_; // Flag to indicate when to stop the thread pool
-}
+};
 }
 
 
