@@ -1,18 +1,17 @@
 #include "scheduler/Task.h"
 
 namespace scheduler {
-    Task::Task(TaskFn fn)
-        :function_(std::move(fn)) {}// Move the function to avoid unnecessary copying
 
-        /* 
-we dont do function_=fn because
-std::function can be expensive to copy
+Task:: Task(std:: function<void()> func, int priority)
+    : func_(std::move(func)),priority_(priority){}
 
-std::move transfers ownership efficiently
+void Task::operator()() const {
+    func_();  // executes the stored function 
+}
 
-This avoids unnecessary allocations.*/
+int Task:: priority() const{
+    return priority_;
+}
 
-    void Task::execute() {
-        function_();
-    }
-} // namespace scheduler 
+
+}

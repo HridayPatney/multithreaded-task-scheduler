@@ -14,6 +14,12 @@
 
 namespace scheduler {
 
+struct TaskCompare {
+    bool operator()(const Task&a, const Task& b) const {
+        return a .priority() < b.priority();
+    }
+};
+
 class ThreadPool{
 public:
     explicit ThreadPool(size_t num_threads);
@@ -25,13 +31,13 @@ private:
 
     std::vector<std::thread> workers_; // Vector to hold worker threads
 
-    std::queue<Task> tasks_queue_; // Queue to hold tasks
+    std:: priority_queue<Task,std:: vector<Task>, TaskCompare> tasks_queue_; // priority Queue to hold tasks
 
     std::mutex queue_mutex_; // Mutex to protect access to the task queue
 
-    std::condition_variable cv_; // Condition variable for task notification
+    std::condition_variable condition_; // Condition variable for task notification
 
-    std::atomic<bool> running_; // Flag to indicate when to stop the thread pool
+    std::atomic<bool> stop_; // Flag to indicate when to stop the thread pool
 };
 }
 
